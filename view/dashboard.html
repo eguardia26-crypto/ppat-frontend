@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background: linear-gradient(120deg, #8A2BE2, #4B0082, #8A2BE2);
+            background-size: 400% 400%;
+            animation: backgroundAnimation 10s ease infinite;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header {
+            width: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #6A1B9A;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logout, .header .profile, .header .datetime {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .header .logout {
+            margin-right: 20px;
+        }
+
+        .header .logout img, .header .profile img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .header .datetime {
+            font-size: 14px;
+        }
+
+        .header .title-text {
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .dashboard {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 150px;
+            grid-gap: 25px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .tile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tile img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        .tile:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .tile:nth-child(1) { background: linear-gradient(135deg, #2196F3, #64B5F6); }
+        .tile:nth-child(2) { background: linear-gradient(135deg, #FF5722, #FF7043); }
+        .tile:nth-child(3) { background: linear-gradient(135deg, #FFC107, #FFD54F); }
+        .tile:nth-child(4) { background: linear-gradient(135deg, #E91E63, #F06292); }
+        .tile:nth-child(5) { background: linear-gradient(135deg, #009688, #4DB6AC); }
+        .tile:nth-child(6) { background: linear-gradient(135deg, #673AB7, #9575CD); }
+        .tile:nth-child(7) { background: linear-gradient(135deg, #3F51B5, #7986CB); }
+        .tile:nth-child(8) { background: linear-gradient(135deg, #FF9800, #FFB74D); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center;">
+            <div onclick="logout()" class="logout" onclick="logout()">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/shutdown.png" alt="Logout">
+                Logout
+            </div>
+            <!-- <div class="profile">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Profile">
+                Profile
+            </div> -->
+        </div>
+        <div class="title-text">LAPORAN BULANAN PPAT KANTAH KOTA SALATIGA</div>
+        <div class="datetime" id="datetime"></div>
+    </div>
+    <div class="dashboard">
+        <div id="buttonDashboard" class="tile">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Dashboard">
+            Dashboard
+        </div>
+        <div onclick="jualBeli()" class="tile">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/sell.png" alt="Peralihan Jual Beli">
+            Peralihan Jual Beli
+        </div>
+        <div  onclick="hibah()" class="tile">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/gift.png" alt="Peralihan Hibah">
+            Peralihan Hibah
+        </div>
+        <div onclick="tukarMenukar()" class="tile">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/swap.png" alt="Peralihan Tukar Menukar">
+            Peralihan Tukar Menukar
+        </div>
+        <div onclick="APHB()" class="tile">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/contract.png" alt="Peralihan APHB">
+            Peralihan APHB
+        </div>
+        <div  onclick="APHT()" class="tile">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/agreement.png" alt="Peralihan APHT">
+            Peralihan APHT
+        </div>
+        <div  onclick="Nihil()" class="tile">
+           
+            Nihil
+        </div>
+        <div onclick="logout()" class="tile">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/logout-rounded.png" alt="Keluar">
+            Keluar
+        </div>
+    </div>
+    <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sessionToken = sessionStorage.getItem('sessionToken');
+
+    if (sessionToken) {
+        const { token, expiration } = JSON.parse(sessionToken);
+        const currentTime = new Date().getTime();
+
+        if (currentTime < expiration) {
+            // console.log("Token is valid. User is logged in.");
+        } else {
+            // Jika token sudah expired
+            alert("Session expired. Please log in again.");
+            sessionStorage.removeItem('sessionToken');
+            window.location.href = "../index.html";
+        }
+    } else {
+        // Jika tidak ada token
+        alert("No session found. Please log in.");
+        window.location.href = "../index.html";
+    }
+});
+
+        function logout() {
+            alert('Logging out...');
+            // Add actual logout functionality here
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        function jualBeli(){
+            window.location.href = 'pageJualBeli.html'
+        }
+        function hibah(){
+            window.location.href = 'pageHibah.html'
+        }
+        function tukarMenukar(){
+            window.location.href = 'pageTukarMenukar.html'
+        }
+        function APHB(){
+            window.location.href = 'pageAPHB.html'
+        }
+        function APHT(){
+            window.location.href = 'pageAPHT.html'
+        }
+        function Nihil(){
+            window.location.href = 'pageNihil.html'
+        }
+        function logout(){
+            if(confirm('Apakah Anda yakin untuk logout?')){
+                Object.keys(sessionStorage).forEach(key => {
+                    sessionStorage.removeItem(key);
+                });
+                window.location.href = "../index.html";
+            }
+        }
+
+
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+<script src="../scripts/dashboard.js"></script>
+<script src="../config/baseURL.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Login Administrator</h1>
+            <input type="text" id="nik" placeholder="Masukan NIK" required>
+            <input type="password" id="password" placeholder="Masukan Password" required>
+            <button id="adminLoginButton">Login</button>
+            <div class="error-message" id="errorMessage">Invalid NIK or Password</div>
+        </div>
+    </div>
+
+    <script src="../config/baseURL.js"></script>
+    <script src="scripts/adminLogin.js"></script>
+</body>
+</html>

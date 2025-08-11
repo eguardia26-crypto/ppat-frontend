@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan PPAT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        table th, table td {
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #007bff;
+            color: #ffffff;
+            text-align: center;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        caption {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .merge {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <caption>Laporan Bulanan Pembuatan Akta oleh PPAT</caption>
+        <thead>
+            <tr>
+                <th rowspan="2">No</th>
+                <th colspan="2" class="merge">Akta</th>
+                <th rowspan="2">Bentuk Perbuatan Hukum</th>
+                <th colspan="2" class="merge">NAMA,ALAMAT dan NPWP</th>
+                <th rowspan="2">Jenis dan Nomor Hak</th>
+                <th rowspan="2">Letak Tanah dan Bangunan</th>
+                <th colspan="2" class="merge">Luas</th>
+                <th rowspan="2">Nilai Transaksi</th>
+                <th colspan="2" class="merge"> SPPT PBB</th>
+                <th colspan="2" class="merge"> SSP</th>
+                <th colspan="2" class="merge"> SSB</th> 
+                <th rowspan="2">Keterangan</th>
+            </tr>
+            <tr>
+                <th>Nomor</th>
+                <th>Tanggal</th>
+                <th >Pihak yang Mengalihkan</th>
+                <th >Pihak yang Menerima</th>
+                <th >Luas Tanah</th>
+                <th >Luas Bangunan</th>
+                <th >NOP/Tahun</th>
+                <th >NJOP (Rp)</th>
+                <th >SSP Tanggal</th>
+                <th >SSP (Rp)</th>
+                <th >SSB Tanggal</th>
+                <th >SSB (Rp)</th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th>17</th>
+                <th>18</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>159/2023</td>
+                <td>2023-05-04</td>
+                <td>APHT</td>
+                <td>Saiman</td>
+                <td>Bambang Agus S dan PT. BPD Jateng Capem Syariah</td>
+                <td>HM-3149</td>
+                <td>Salatiga-Sidomukti-Kecandran</td>
+                <td>552 M<sup>2</sup></td>
+                <td>0 M<sup>2</sup></td>
+                <td>Rp 0,00</td>
+                <td>040.001.022.0165.0</td>
+                <td>Rp 0,00</td>
+                <td>-</td>
+                <td>Rp 0,00</td>
+                <td>-</td>
+                <td>Rp 0,00</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>160/2023</td>
+                <td>2023-05-04</td>
+                <td>APHT</td>
+                <td>Eko Purwomo dan Ariani</td>
+                <td>Eko Purwomo dan PT. BCA Tbk</td>
+                <td>HM-1713</td>
+                <td>Salatiga-Tingkir-Tingkir Tengah</td>
+                <td>293 M<sup>2</sup></td>
+                <td>0 M<sup>2</sup></td>
+                <td>Rp 0,00</td>
+                <td>020.006.005.0069.0</td>
+                <td>Rp 0,00</td>
+                <td>-</td>
+                <td>Rp 0,00</td>
+                <td>-</td>
+                <td>Rp 0,00</td>
+                <td>-</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+
+    <div class="button-container">
+        <button onclick="downloadExcel()">Download Excel</button>
+        <label for="upload-file">Upload Berkas</label>
+        <input type="file" id="upload-file" accept=".xls, .xlsx">
+        <button onclick="updateData()">Update Data</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script>
+        function downloadExcel() {
+            const table = document.querySelector("table");
+
+            // Konversi tabel HTML menjadi worksheet
+            const worksheet = XLSX.utils.table_to_sheet(table);
+
+            // Atur border di semua sel
+            const range = XLSX.utils.decode_range(worksheet['!ref']);
+            for (let row = range.s.r; row <= range.e.r; row++) {
+                for (let col = range.s.c; col <= range.e.c; col++) {
+                    const cellAddress = XLSX.utils.encode_cell({ r: row, c: col });
+                    if (!worksheet[cellAddress]) continue;
+                    worksheet[cellAddress].s = {
+                        border: {
+                            top: { style: "thin", color: { rgb: "000000" } },
+                            bottom: { style: "thin", color: { rgb: "000000" } },
+                            left: { style: "thin", color: { rgb: "000000" } },
+                            right: { style: "thin", color: { rgb: "000000" } },
+                        },
+                    };
+                }
+            }
+
+            // Atur lebar kolom
+            worksheet["!cols"] = [
+                { wch: 5 }, { wch: 15 }, { wch: 15 }, { wch: 20 }, { wch: 25 },
+                { wch: 25 }, { wch: 20 }, { wch: 30 }, { wch: 15 }, { wch: 15 },
+                { wch: 20 }, { wch: 20 }, { wch: 20 }, { wch: 15 }, { wch: 20 },
+                { wch: 15 }, { wch: 20 }, { wch: 20 }
+            ];
+
+            // Buat workbook dan simpan sebagai file Excel
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Laporan PPAT");
+            XLSX.writeFile(workbook, "Laporan_PPAT.xlsx");
+        }
+
+        function updateData() {
+            const fileInput = document.getElementById('upload-file');
+            if (fileInput.files.length === 0) {
+                alert('Silakan unggah file terlebih dahulu!');
+            } else {
+                alert('Fitur pembaruan data akan datang!');
+            }
+        }
+    </script>
+    <script src="../config/baseURL.js"></script>
+</body>
+</html>

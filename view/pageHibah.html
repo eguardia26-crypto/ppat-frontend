@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Transaksi</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(270deg, #6a1b9a, #8e24aa, #ab47bc);
+            background-size: 600% 600%;
+            animation: gradientAnimation 12s ease infinite;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Hindari scroll pada body */
+        }
+
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #6a1b9a;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .form-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-height: 90vh; /* Batasi tinggi maksimal */
+            overflow-y: auto; /* Aktifkan scroll pada kontainer */
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input, .form-group select, textarea {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus, textarea:focus {
+            outline: none;
+            border-color: #6a1b9a;
+        }
+
+        .form-group button {
+            background: #6a1b9a;
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .form-group button:hover {
+            background: #8e24aa;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-title">Formulir Hibah</div>
+        <form>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bulan">Pilih Bulan</label>
+                    <select id="bulan">
+                        <option>Pilih Bulan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tahun">Pilih Tahun</label>
+                    <select id="tahun">
+                        <option>Pilih Tahun</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nomor-akta">Nomor Akta</label>
+                    <input type="text" id="nomor-akta" placeholder="Nomor Akta / Tahun">
+                </div>
+                <div class="form-group">
+                    <label for="nilai-transaksi">Nilai Transaksi</label>
+                    <input type="number" id="nilai-transaksi" placeholder="000.000.000">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="tanggal-akta">Tanggal Akta</label>
+                    <input type="date" id="tanggal-akta">
+                </div>
+                <div class="form-group">
+                    <label for="nop">NOP / Tahun</label>
+                    <input type="text" id="nop" placeholder="xx.xx.xxx.xxx-xxxx.0/2021">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bentu-perbuatan-hukum">Bentuk Perbuatan Hukum</label>
+                    <input disabled value="Hibah" type="text" id="bentu-perbuatan-hukum">
+                </div>
+            <div class="form-group">
+                <label for="njop">NJOP </label>
+                    <input type="number" id="njop" placeholder="000.000.000">
+                    
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pihak-yang-mengalihkan">Pihak Yang Mengalihkan</label>
+                    <textarea type="text" id="pihak-yang-mengalihkan" placeholder="1....,2... atau ....,...."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ssp-tanggal">SSP Tanggal</label>
+                    <input type="date" id="ssp-tanggal">
+                </div>
+           
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pihak-yang-menerima">Pihak Yang Menerima</label>
+                    <textarea type="text" id="pihak-yang-menerima" placeholder="1....,2... atau ....,...."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ssp-rp">SSP Rp</label>
+                    <input type="number" id="ssp-rp" placeholder="Angka saja">
+                </div>
+           
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <div>
+                        <label for="jenis-dan-nomor-hak">Jenis dan Nomor Hak</label>
+                    </div>
+                    <div class="form-row">
+                        <select id="jenis-dan-nomor-hak">
+                            <option value="">-- Pilih Jenis Hak --</option>
+                            <option value="HM">HM</option>
+                            <option value="HGB">HGB</option>
+                            <option value="HP">HP</option>
+                            <option value="Hak Wakaf">Hak Wakaf</option>
+                            <option value="Latter-C">Latter-C</option>
+                        </select>
+                        <input type="number" id="jenis-nomor-hak" placeholder="Angka saja">
+                    </div>
+                   
+                </div>
+                <div class="form-group">
+                    <label for="ssb-tanggal">SSB Tanggal</label>
+                    <input type="date" id="ssb-tanggal">
+                </div>
+           
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <div>
+                        <label for="letak-tanah-dan-bangunan">Letak Tanah dan Bangunan </label>
+                    </div>
+                    <div class="form-row">
+                        <select id="letak-tanah-dan-bangunan">
+                            <option value="">-- Kabupaten/Kota --</option>
+                        </select>
+                        <select id="letak-tanah-dan-bangunan-1">
+                            <option value="">--Kecamatan --</option>
+                        </select>
+                        <select id="letak-tanah-dan-bangunan-2">
+                            <option value="">--Desa/Kelurahan --</option>
+                        </select>
+                    </div>
+                   
+                </div>
+                <div class="form-group">
+                    <label for="ssb-rp">SSB Rp</label>
+                    <input type="number" id="ssb-rp" placeholder="Angka saja">
+                </div>
+           
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="luas-tanah">Luas Tanah</label>
+                    <input type="number" id="luas-tanah" placeholder="00">
+                </div>
+                <div class="form-group">
+                    <label for="keterangan">Keterangan</label>
+                    <input type="text" id="keterangan" placeholder="-">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="luas-bangunan">Luas Bangunan</label>
+                    <input type="number" id="luas-bangunan" placeholder="00">
+                </div>
+
+            </div>
+
+            <div  class="form-group">
+                <button id="submit-button" type="submit">
+                    <span id="button-text">Simpan</span>
+                    <span id="button-spinner" style="display: none;">⏳</span>
+                </button>
+            </div>
+            </div>
+           
+        </form>
+        <script src="../scripts/pageHibah.js"></script>
+        <script src="../config/baseURL.js"></script>
+    </div>
+</body>
+
+
+</html>
+
+

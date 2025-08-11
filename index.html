@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Bulanan PPAT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<style>
+    .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 10px auto;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<body>
+    <div class="background"></div>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Laporan Bulanan PPAT</h1>
+            <input type="text" id="nik" placeholder="Masukan NIK" required>
+            <input type="password" id="password" placeholder="Masukan Password" required>
+            <button id="loginButton">Login</button>
+            <div class="error-message" id="errorMessage">Invalid NIK or Password</div>
+            <p>Belum punya akun <a href="./view/regsiter.html">Daftar disini</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessionToken = sessionStorage.getItem('sessionToken');
+    
+            if (sessionToken) {
+                const { token, expiration } = JSON.parse(sessionToken);
+                const currentTime = new Date().getTime();
+    
+                if (currentTime < expiration) {
+                    // Jika token masih valid, redirect ke dashboard
+                    window.location.href = "view/dashboard.html";
+                }
+            }
+        });
+    </script>
+    <script src="./config/baseUrl.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html>
